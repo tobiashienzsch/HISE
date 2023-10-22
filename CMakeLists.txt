@@ -15,11 +15,15 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(BUILD_SHARED_LIBS OFF)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(JUCE)
+
+set_directory_properties(PROPERTIES
+    JUCE_COMPANY_NAME       "Hart Instruments"
+    JUCE_COMPANY_WEBSITE    "http://hise.audio"
+    JUCE_COMPANY_COPYRIGHT  "Copyright (c) 2023 - Hart Instruments"
+)
 
 juce_add_modules(ALIAS_NAMESPACE hise
     hi_backend
