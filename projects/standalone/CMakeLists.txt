@@ -44,7 +44,7 @@ target_compile_definitions(HISEStandalone
         
         HISE_ENABLE_EXPANSIONS=1
         HISE_ENABLE_MIDI_INPUT_FOR_FX=1 
-        HISE_INCLUDE_RLOTTiE=1
+        HISE_INCLUDE_RLOTTIE=1
         HISE_INCLUDE_SNEX=1
         HISE_NO_GUI_TOOLS=0
         HISE_SCRIPT_SERVER_TIMEOUT=20000
@@ -111,6 +111,6 @@ target_link_libraries(HISEStandalone
         HISEStandalone_BinaryData
 
         juce::juce_recommended_config_flags
-        # juce::juce_recommended_lto_flags
+        juce::juce_recommended_lto_flags
         # juce::juce_recommended_warning_flags
 )

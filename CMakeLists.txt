@@ -7,10 +7,6 @@ if (CCACHE)
     set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
 endif ()
 
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_EXTENSIONS ON)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -18,6 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(JUCE)
+juce_disable_default_flags()
 
 set_directory_properties(PROPERTIES
     JUCE_COMPANY_NAME       "Hart Instruments"
