@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.15)
 project(HISE VERSION 3.6.2)
 
 find_program(CCACHE ccache)
@@ -40,4 +40,23 @@ juce_add_modules(ALIAS_NAMESPACE hise
     hi_zstd
 )
 
+juce_add_binary_data(HISE_BinaryData
+    SOURCES
+        "hi_core/hi_images/logo_new.png"
+        "hi_core/hi_images/logo_mini.png"
+        "hi_core/hi_images/infoError.png"
+        "hi_core/hi_images/infoInfo.png"
+        "hi_core/hi_images/infoQuestion.png"
+        "hi_core/hi_images/infoWarning.png"
+        "hi_core/hi_images/FrontendKnob_Bipolar.png"
+        "hi_core/hi_images/FrontendKnob_Unipolar.png"
+        "hi_core/hi_images/balanceKnob_200.png"
+        "hi_core/hi_images/knobEmpty_200.png"
+        "hi_core/hi_images/knobModulated_200.png"
+        "hi_core/hi_images/knobUnmodulated_200.png"
+        "hi_core/hi_images/toggle_200.png"
+        "hi_core/hi_images/knob_without_arrow.png"
+)
+
+add_subdirectory(projects/plugin)
 add_subdirectory(projects/standalone)

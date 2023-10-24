@@ -1,24 +1,32 @@
 cmake_minimum_required(VERSION 3.15)
-project(standalone VERSION ${CMAKE_PROJECT_VERSION})
+project(plugin VERSION ${CMAKE_PROJECT_VERSION})
 
-juce_add_gui_app(HISEStandalone
-    PRODUCT_NAME "HISE Standalone"
-    BUNDLE_ID "com.hartinstruments.HISEStandalone"
+juce_add_plugin(HISE
+    PRODUCT_NAME "HISE"
+    BUNDLE_ID "com.hartinstruments.HISE"
     ICON_BIG "../../hi_core/hi_images/logo_new.png"
+    PLUGIN_MANUFACTURER_CODE Hain               
+    PLUGIN_CODE Hise                            
+    FORMATS AU VST3
+    IS_SYNTH ON                       
+    NEEDS_MIDI_INPUT ON               
+    NEEDS_MIDI_OUTPUT ON              
+    IS_MIDI_EFFECT OFF                 
+    EDITOR_WANTS_KEYBOARD_FOCUS ON
     HARDENED_RUNTIME_ENABLED ON
     NEEDS_WEB_BROWSER ON
     NEEDS_CURL ON
 )
 
-juce_generate_juce_header(HISEStandalone)
+juce_generate_juce_header(HISE)
 
-target_sources(HISEStandalone
+target_sources(HISE
     PRIVATE
-        Source/Main.cpp
-        Source/MainComponent.cpp
+        Source/PluginProcessor.h
+        Source/PluginProcessor.cpp
 )
 
-target_compile_definitions(HISEStandalone
+target_compile_definitions(HISE
     PRIVATE
         HI_ENABLE_EXPANSION_EDITING=1
         HI_EXPORT_DSP_LIBRARY=0
@@ -42,14 +50,15 @@ target_compile_definitions(HISEStandalone
         USE_RAW_FRONTEND=0
         USE_COPY_PROTECTION=0
 
-        JUCE_APPLICATION_NAME_STRING="$<TARGET_PROPERTY:HISEStandalone,JUCE_PRODUCT_NAME>"
-        JUCE_APPLICATION_VERSION_STRING="$<TARGET_PROPERTY:HISEStandalone,JUCE_VERSION>"
+        JUCE_APPLICATION_NAME_STRING="$<TARGET_PROPERTY:HISE,JUCE_PRODUCT_NAME>"
+        JUCE_APPLICATION_VERSION_STRING="$<TARGET_PROPERTY:HISE,JUCE_VERSION>"
         JUCE_DISABLE_JUCE_VERSION_PRINTING=1
         JUCE_DISPLAY_SPLASH_SCREEN=0
         JUCE_REPORT_APP_USAGE=0
+        JUCE_VST3_CAN_REPLACE_VST2=0
 )
 
-target_compile_options(HISEStandalone
+target_compile_options(HISE
     PRIVATE
         "-Wno-deprecated-declarations"
         "-Wno-implicit-const-int-float-conversion"
@@ -59,12 +68,12 @@ target_compile_options(HISEStandalone
         "-Wno-unqualified-std-cast-call"
 )
 
-target_include_directories(HISEStandalone
+target_include_directories(HISE
     PRIVATE
         ${PROJECT_SOURCE_DIR}/Source/Config
 )
 
-target_link_libraries(HISEStandalone
+target_link_libraries(HISE
     PRIVATE
         juce::juce_audio_utils
         juce::juce_cryptography
