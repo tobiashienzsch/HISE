@@ -42,7 +42,7 @@ BEGIN_JUCE_MODULE_DECLARATION
   website:          http://hise.audio
   license:          GPL / Commercial
 
-  dependencies:      juce_audio_basics, juce_audio_formats, juce_core, juce_graphics,  juce_data_structures, juce_events
+  dependencies:     juce_audio_basics, juce_audio_formats, juce_core, juce_data_structures, juce_dsp, juce_events, juce_graphics, juce_gui_extra
   OSXFrameworks:    Accelerate
   iOSFrameworks:    Accelerate
 

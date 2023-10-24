@@ -31,7 +31,7 @@
 */
 
 #if !HISE_NO_GUI_TOOLS
-#include "../JuceLibraryCode/BinaryData.h"
+#include "BinaryData.h"
 #endif
 
 namespace hise { using namespace juce;
