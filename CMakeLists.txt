@@ -16,6 +16,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_subdirectory(JUCE)
 juce_disable_default_flags()
 
+include(FetchContent)
+FetchContent_Declare(clap-juce-extensions GIT_REPOSITORY "https://github.com/free-audio/clap-juce-extensions" GIT_TAG "main")
+FetchContent_MakeAvailable(clap-juce-extensions)
+
 set_directory_properties(PROPERTIES
     JUCE_COMPANY_NAME       "Hart Instruments"
     JUCE_COMPANY_WEBSITE    "http://hise.audio"

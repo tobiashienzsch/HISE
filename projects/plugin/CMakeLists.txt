@@ -18,6 +18,16 @@ juce_add_plugin(HISE
     NEEDS_CURL ON
 )
 
+clap_juce_extensions_plugin(
+    TARGET
+        HISE
+    CLAP_ID
+        "com.hartinstruments.HISE"
+    CLAP_FEATURES
+        instrument 
+        sampler
+)
+
 juce_generate_juce_header(HISE)
 
 target_sources(HISE
