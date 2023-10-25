@@ -40,6 +40,8 @@ target_compile_definitions(HISEStandalone
         USE_BACKEND=1
         USE_FRONTEND=0 
         USE_RAW_FRONTEND=0
+        IS_STANDALONE_APP=1 
+        IS_STANDALONE_FRONTEND=0
         USE_COPY_PROTECTION=0
 
         JUCE_APPLICATION_NAME_STRING="$<TARGET_PROPERTY:HISEStandalone,JUCE_PRODUCT_NAME>"
@@ -47,6 +49,7 @@ target_compile_definitions(HISEStandalone
         JUCE_DISABLE_JUCE_VERSION_PRINTING=1
         JUCE_DISPLAY_SPLASH_SCREEN=0
         JUCE_REPORT_APP_USAGE=0
+        JUCE_ASIO=1
 )
 
 target_compile_options(HISEStandalone
@@ -62,6 +65,7 @@ target_compile_options(HISEStandalone
 target_include_directories(HISEStandalone
     PRIVATE
         ${PROJECT_SOURCE_DIR}/Source/Config
+        ${CMAKE_SOURCE_DIR}/tools/SDK/ASIOSDK2.3/common
 )
 
 target_link_libraries(HISEStandalone
