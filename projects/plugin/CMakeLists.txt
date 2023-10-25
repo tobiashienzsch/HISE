@@ -68,16 +68,6 @@ target_compile_definitions(HISE
         JUCE_VST3_CAN_REPLACE_VST2=0
 )
 
-target_compile_options(HISE
-    PRIVATE
-        "-Wno-deprecated-declarations"
-        "-Wno-implicit-const-int-float-conversion"
-        "-Wno-inconsistent-missing-override"
-        "-Wno-return-type"
-        "-Wno-switch"
-        "-Wno-unqualified-std-cast-call"
-)
-
 target_include_directories(HISE
     PRIVATE
         ${PROJECT_SOURCE_DIR}/Source/Config
@@ -120,4 +110,16 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     if(${CMAKE_CXX_COMPILER_VERSION} VERSION_GREATER_EQUAL 15)
         target_link_options(HISE PRIVATE -Wl,-weak_reference_mismatches,weak)
     endif()
+endif()
+
+if(NOT (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC") OR (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC"))
+    target_compile_options(HISE
+        PRIVATE
+            "-Wno-deprecated-declarations"
+            "-Wno-implicit-const-int-float-conversion"
+            "-Wno-inconsistent-missing-override"
+            "-Wno-return-type"
+            "-Wno-switch"
+            "-Wno-unqualified-std-cast-call"
+    )
 endif()
