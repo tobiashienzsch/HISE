@@ -104,22 +104,8 @@ target_link_libraries(HISE
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         # juce::juce_recommended_warning_flags
+
+        hise::compiler_options
+        hise::compiler_warnings
 )
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    if(${CMAKE_CXX_COMPILER_VERSION} VERSION_GREATER_EQUAL 15)
-        target_link_options(HISE PRIVATE -Wl,-weak_reference_mismatches,weak)
-    endif()
-endif()
-
-if(NOT ((CMAKE_CXX_COMPILER_ID STREQUAL "MSVC") OR (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")))
-    target_compile_options(HISE
-        PRIVATE
-            "-Wno-deprecated-declarations"
-            "-Wno-implicit-const-int-float-conversion"
-            "-Wno-inconsistent-missing-override"
-            "-Wno-return-type"
-            "-Wno-switch"
-            "-Wno-unqualified-std-cast-call"
-    )
-endif()

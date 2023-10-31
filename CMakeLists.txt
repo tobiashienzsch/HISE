@@ -13,6 +13,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+include(tools/cmake/CompilerOptions.cmake)
+include(tools/cmake/CompilerWarnings.cmake)
+
 add_subdirectory(JUCE)
 juce_disable_default_flags()
 
