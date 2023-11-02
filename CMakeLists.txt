@@ -73,3 +73,4 @@ add_subdirectory(projects/plugin)
 add_subdirectory(projects/standalone)
 
 add_subdirectory(tools/hlac_tool)
+add_subdirectory(tools/snex_playground)
