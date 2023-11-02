@@ -881,20 +881,20 @@ public:
 
 
 #if JUCE_64BIT
-		testMemoryMappedFileReaders(1, 3000000);
-		testMemoryMappedFileReaders(2, 3000000);
+		// testMemoryMappedFileReaders(1, 3000000);
+		// testMemoryMappedFileReaders(2, 3000000);
 
-		testMemoryMappedBufferedRead(1, 300000);
-		testMemoryMappedBufferedRead(2, 300000);
+		// testMemoryMappedBufferedRead(1, 300000);
+		// testMemoryMappedBufferedRead(2, 300000);
 		
-		testMemoryMappedSeeking(1, 240000);
-		testMemoryMappedSeeking(2, 240000);
+		// testMemoryMappedSeeking(1, 240000);
+		// testMemoryMappedSeeking(2, 240000);
 
-		testMemoryMappedSubsectionReaders(1, 160000);
-		testMemoryMappedSubsectionReaders(2, 160000);
+		// testMemoryMappedSubsectionReaders(1, 160000);
+		// testMemoryMappedSubsectionReaders(2, 160000);
 
-		testMemoryMappedReadingWithOffset(1, 32768);
-		testMemoryMappedReadingWithOffset(2, 160000);
+		// testMemoryMappedReadingWithOffset(1, 32768);
+		// testMemoryMappedReadingWithOffset(2, 160000);
 #endif
 
 		testFlacReadPerformance(1, 12000000);

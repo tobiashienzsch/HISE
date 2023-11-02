@@ -13,8 +13,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+enable_testing()
+include(CTest)
+
 include(tools/cmake/CompilerOptions.cmake)
 include(tools/cmake/CompilerWarnings.cmake)
+include(tools/cmake/GenerateAppConfigStub.cmake)
 
 add_subdirectory(JUCE)
 juce_disable_default_flags()
@@ -67,3 +71,5 @@ juce_add_binary_data(HISE_BinaryData
 
 add_subdirectory(projects/plugin)
 add_subdirectory(projects/standalone)
+
+add_subdirectory(tools/hlac_tool)

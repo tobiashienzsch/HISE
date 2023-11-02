@@ -29,6 +29,7 @@ clap_juce_extensions_plugin(
 )
 
 juce_generate_juce_header(HISE)
+hise_generate_appconfig_stub(HISE)
 
 target_sources(HISE
     PRIVATE

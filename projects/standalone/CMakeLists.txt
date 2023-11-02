@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(standalone VERSION ${CMAKE_PROJECT_VERSION})
 
-juce_add_gui_app(HISEStandalone
+juce_add_gui_app(HISE_Standalone
     PRODUCT_NAME "HISE Standalone"
     BUNDLE_ID "com.hartinstruments.HISEStandalone"
     ICON_BIG "../../hi_core/hi_images/logo_new.png"
@@ -10,18 +10,20 @@ juce_add_gui_app(HISEStandalone
     NEEDS_CURL ON
 )
 
-juce_generate_juce_header(HISEStandalone)
+juce_generate_juce_header(HISE_Standalone)
+hise_generate_appconfig_stub(HISE_Standalone)
 
-target_sources(HISEStandalone
+target_sources(HISE_Standalone
     PRIVATE
         Source/Main.cpp
         Source/MainComponent.cpp
 )
 
-target_compile_definitions(HISEStandalone
+target_compile_definitions(HISE_Standalone
     PRIVATE
         HI_ENABLE_EXPANSION_EDITING=1
         HI_EXPORT_DSP_LIBRARY=0
+        HI_RUN_UNIT_TESTS=1
         HI_SUPPORT_FULL_DYNAMICS_HLAC=1
         
         HISE_ENABLE_EXPANSIONS=1
@@ -44,21 +46,20 @@ target_compile_definitions(HISEStandalone
         IS_STANDALONE_FRONTEND=0
         USE_COPY_PROTECTION=0
 
-        JUCE_APPLICATION_NAME_STRING="$<TARGET_PROPERTY:HISEStandalone,JUCE_PRODUCT_NAME>"
-        JUCE_APPLICATION_VERSION_STRING="$<TARGET_PROPERTY:HISEStandalone,JUCE_VERSION>"
+        JUCE_APPLICATION_NAME_STRING="$<TARGET_PROPERTY:HISE_Standalone,JUCE_PRODUCT_NAME>"
+        JUCE_APPLICATION_VERSION_STRING="$<TARGET_PROPERTY:HISE_Standalone,JUCE_VERSION>"
         JUCE_DISABLE_JUCE_VERSION_PRINTING=1
         JUCE_DISPLAY_SPLASH_SCREEN=0
         JUCE_REPORT_APP_USAGE=0
         JUCE_ASIO=1
 )
 
-target_include_directories(HISEStandalone
+target_include_directories(HISE_Standalone
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/Source/Config
         ${CMAKE_SOURCE_DIR}/tools/SDK/ASIOSDK2.3/common
 )
 
-target_link_libraries(HISEStandalone
+target_link_libraries(HISE_Standalone
     PRIVATE
         juce::juce_audio_utils
         juce::juce_cryptography
@@ -92,4 +93,13 @@ target_link_libraries(HISEStandalone
 
         hise::compiler_options
         hise::compiler_warnings
+)
+
+add_test(
+    NAME
+        HISE_Tests
+    COMMAND
+        $<TARGET_FILE:HISE_Standalone> run_unit_tests
+    WORKING_DIRECTORY
+        ${CMAKE_SOURCE_DIR}
 )
