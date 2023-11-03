@@ -226,9 +226,17 @@ struct helper_nodes
 
 struct WrapperTests : public UnitTest
 {
-	WrapperTests() :
-		UnitTest("Testing node wrappers", "node_tests")
-	{}
+	WrapperTests() 
+		: UnitTest("Testing node wrappers", "node_tests")
+	{
+	}
+
+	void runTest() override
+	{	
+		testOpaqueNodes();
+		testBypassWrappers();
+		testEventWrappers();
+	}
 
 	void testOpaqueNodes()
 	{
@@ -286,20 +294,6 @@ struct WrapperTests : public UnitTest
 
 		//testEventWrapper<wrap::init<wrap::event<helper_nodes::event2dc>, helper_nodes::event_initialiser<32>>>(t, "Testing init");
 	}
-
-	
-
-	void runTest() override
-	{
-		
-		testOpaqueNodes();
-
-		//testBypassWrappers();
-		
-
-		//testEventWrappers();
-	}
-
 
 	void testBypassWrappers()
 	{
