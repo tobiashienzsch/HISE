@@ -103,3 +103,10 @@ add_test(
     WORKING_DIRECTORY
         ${CMAKE_SOURCE_DIR}
 )
+
+set_property(
+    TEST 
+        HISE_Tests
+    PROPERTY ENVIRONMENT 
+        "HISE_SNEX_TEST_FILES=${CMAKE_SOURCE_DIR}/tools/snex_playground/test_files"
+)

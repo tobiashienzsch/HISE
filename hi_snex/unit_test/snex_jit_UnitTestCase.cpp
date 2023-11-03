@@ -281,8 +281,11 @@ void JitFileTestCase::logMessage(int level, const juce::String& s)
 
 juce::File JitFileTestCase::getTestFileDirectory()
 {
-	auto p = File::getSpecialLocation(File::currentApplicationFile);
+	auto path = SystemStats::getEnvironmentVariable("HISE_SNEX_TEST_FILES", "");
+	if(auto dir = File{path}; dir.isDirectory()) 
+		return dir;
 
+	auto p = File::getSpecialLocation(File::currentApplicationFile);
 	p = p.getParentDirectory();
 
 	while (!p.isRoot() && p.isDirectory() && !p.getChildFile("JUCE").isDirectory())
