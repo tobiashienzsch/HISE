@@ -2076,7 +2076,110 @@ bool HiseJavascriptEngine::RootObject::OptimizationPass::callForEach(Statement* 
 }
 
 
+#if USE_BACKEND
 
+#define STRINGIFY_IMPL(x) #x
+#define STRINGIFY(x) STRINGIFY_IMPL(x)
+#define SOURCE_LOCATION STRINGIFY(__FILE__) ":" STRINGIFY(__LINE__)
 
+#define SECTION(section_name) this->beginTest((section_name)); if (sizeof(char) == 1)
+
+#define MSG_CHECK(x) SOURCE_LOCATION " -- '" STRINGIFY(x) "' == false"
+#define CHECK(x) this->expect((x), MSG_CHECK(x));
+
+#define MSG_CHECK_CONTAINS(str, sub)                                                                                   \
+    juce::String(SOURCE_LOCATION " -- '") + (str) + juce::String("' does not contain '") + (sub) + juce::String("'")
+#define CHECK_CONTAINS(str, sub) this->expect((str).contains((sub)), MSG_CHECK_CONTAINS((str), (sub)));
+
+#define CHECK_EQUAL(lhs, rhs) this->expectEquals<decltype((lhs))>((lhs), (rhs), SOURCE_LOCATION);
+
+struct HiseJavascriptEngineTest final : juce::UnitTest
+{
+	HiseJavascriptEngineTest() 
+		: juce::UnitTest("Testing HiseJavascriptEngine", "hi_scripting")
+	{
+	}
+
+	void testExpressionOps(HiseJavascriptEngine& engine)
+	{
+		struct TestCase 
+		{
+			juce::String code;
+			juce::var expected;
+			std::function<bool(juce::var const&)> checkType;
+		};
+
+		auto const testCases = std::vector<TestCase>
+		{
+			TestCase{"40.0 + 2.0", 42.0, [](auto const& v) { return v.isDouble(); }},
+			TestCase{"44.0 - 2.0", 42.0, [](auto const& v) { return v.isDouble(); }},
+			TestCase{"84.0 * 0.5", 42.0, [](auto const& v) { return v.isDouble(); }},
+			TestCase{"84.0 / 2.0", 42.0, [](auto const& v) { return v.isDouble(); }},
+			TestCase{"84.0 == 2.0", false, [](auto const& v) { return v.isBool(); }},
+			TestCase{"84.0 != 2.0", true,  [](auto const& v) { return v.isBool(); }},
+		};
+
+		for(auto const& tc : testCases) 
+		{
+			SECTION("evaluate: " + tc.code) 
+			{
+				auto result = juce::Result::ok();
+				auto value = engine.evaluate(tc.code, &result);
+				CHECK(result);
+				if(result){
+					CHECK(tc.checkType(value));
+					CHECK_EQUAL(static_cast<double>(value), static_cast<double>(tc.expected));
+				}
+			}
+		}
+	}
+
+	void testExpressionErrors(HiseJavascriptEngine& engine)
+	{
+		SECTION("evaluate: error = function in expression") 
+		{
+			auto code = R"(
+				function fortytwo() { return 42.0; }
+				fortytwo();
+			)";
+			auto result = juce::Result::ok();
+			auto value = engine.evaluate(code, &result);
+			CHECK(!result);
+			CHECK_CONTAINS(result.getErrorMessage(), "Inline functions definitions cannot have a name");
+		}
+
+		SECTION("evaluate: error = function does not exist") 
+		{
+			auto code = "function_does_not_exist()";
+			auto result = juce::Result::ok();
+			auto value = engine.evaluate(code, &result);
+			CHECK(!result);
+			CHECK_CONTAINS(result.getErrorMessage(), "This expression is not a function");
+		}
+
+		SECTION("evaluate: error = expecting an expression") 
+		{
+			auto code = "5 ==== 4";
+			auto result = juce::Result::ok();
+			auto value = engine.evaluate(code, &result);
+			CHECK(!result);
+			CHECK_CONTAINS(result.getErrorMessage(), "Found '=' when expecting an expression");
+		}
+	}
+
+	void runTest() override
+	{
+		auto backend = BackendProcessor();
+		auto js = JavascriptMasterEffect(&backend, juce::String());
+		auto engine = HiseJavascriptEngine(&js, &backend);
+
+		testExpressionOps(engine);
+		testExpressionErrors(engine);		
+	}
+};
+
+static HiseJavascriptEngineTest testHiseJavascriptEngine;
+
+#endif
 
 } // namespace hise
