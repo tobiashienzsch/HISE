@@ -1,14 +1,4 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic startup code for a Juce application.
-
-  ==============================================================================
-*/
-
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 #define DECLARE_ID(x) static Identifier x(#x);
 
