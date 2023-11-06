@@ -42,9 +42,7 @@ BEGIN_JUCE_MODULE_DECLARATION
   website:          http://hise.audio
   license:          MIT
 
-  dependencies:     juce_audio_basics, juce_audio_formats, juce_core, juce_graphics,  juce_data_structures, juce_events
-  OSXFrameworks:    Accelerate
-  iOSFrameworks:    Accelerate
+  dependencies:     juce_gui_basics, hi_zstd
 
 END_JUCE_MODULE_DECLARATION
 
