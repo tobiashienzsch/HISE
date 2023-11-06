@@ -57,8 +57,7 @@ target_link_libraries(snex_playground
         hise::hi_tools
         hise::hi_zstd
 
-    PUBLIC
-        HISE_BinaryData
+        hise::binary_data
 
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags

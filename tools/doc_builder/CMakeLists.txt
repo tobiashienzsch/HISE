@@ -37,7 +37,7 @@ target_compile_definitions(doc_builder
 
 target_link_libraries(doc_builder
     PRIVATE
-        HISE_BinaryData
+        hise::binary_data
 
         juce::juce_opengl
         hise::hi_dsp_library

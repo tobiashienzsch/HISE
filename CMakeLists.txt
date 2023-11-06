@@ -68,6 +68,7 @@ juce_add_binary_data(HISE_BinaryData
         "hi_core/hi_images/toggle_200.png"
         "hi_core/hi_images/knob_without_arrow.png"
 )
+add_library(hise::binary_data ALIAS HISE_BinaryData)
 
 add_subdirectory(projects/plugin)
 add_subdirectory(projects/standalone)
