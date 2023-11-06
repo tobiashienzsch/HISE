@@ -72,6 +72,7 @@ juce_add_binary_data(HISE_BinaryData
 add_subdirectory(projects/plugin)
 add_subdirectory(projects/standalone)
 
+add_subdirectory(tools/cpp_api_builder/CppBuilder)
+add_subdirectory(tools/doc_builder)
 add_subdirectory(tools/hlac_tool)
 add_subdirectory(tools/snex_playground)
-add_subdirectory(tools/cpp_api_builder/CppBuilder)
